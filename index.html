@@ -1,38 +1,398 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Triza Weds Andrew</title>
+<title>Triza & Andrew | Wedding Invitation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
-
-/* GLOBAL */
-
-html{scroll-behavior:smooth;}
-
+/* ================= GLOBAL ================= */
 body{
-margin:0;
-font-family:Poppins;
-background:#faf7f2;
-text-align:center;
-color:#333;
-opacity:0;
-animation:fade 1.5s forwards;
-display: grid;
-place-items: center;  /* centers both ways perfectly */
+    margin:0;
+    font-family:'Playfair Display', serif;
+    background:#faf7f2;
+    color:#333;
+    opacity:0;
+    overflow:hidden;
+    text-align:center;
+    animation:fade 1.5s forwards;
+    display: grid;
+    place-items: center;  /* centers both ways perfectly */
 }
-
 @keyframes fade{
 to{opacity:1;}
 }
+
+/* ================= PARTICLE SPARKLES ================= */
+.sparkles{
+    position:absolute;
+    top:20px;
+    left:50%;
+    width:200px;
+    height:60px;
+    transform:translateX(-50%);
+    pointer-events:none;
+    z-index:7;
+}
+
+.sparkles span{
+    position:absolute;
+    display:block;
+    width:4px;
+    height:4px;
+    background:gold;
+    border-radius:50%;
+    opacity:0;
+    animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle{
+    0% {opacity:0; transform:translate(0,0) scale(0);}
+    50% {opacity:1; transform:translate(var(--x),var(--y)) scale(1);}
+    100% {opacity:0; transform:translate(var(--x),var(--y)) scale(0);}
+}
+
+/* ================= ENVELOPE INTRO ================= */
+#envelope{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9998;
+    transition:1.5s;
+}
+
+/* ================= REAL ENVELOPE DESIGN ================= */
+
+.envelope-wrapper{
+    position:relative;
+    width:320px;
+    height:220px;
+}
+
+
+
+
+/* ===============================
+   LUXURY HANGING MESSAGE BUBBLE
+================================= */
+
+.bubble-message {
+    position: fixed;
+    left: 50%;
+    top: 200px;
+
+    /* CENTER LOCK (VERY IMPORTANT) */
+    transform: translateX(-50%);
+
+    min-width: 220px;
+    padding: 14px 28px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.98),
+        rgba(255,248,220,0.95)
+    );
+
+    color: #b8860b;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+
+    /* NEW SHAPE */
+    border-radius: 12px;
+    border: 1px solid rgba(212,175,55,.5);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.25),
+        inset 0 0 10px rgba(255,215,0,.15);
+
+    z-index: 9999;
+    pointer-events: none;
+
+    /* ONLY vertical float */
+    animation: floatBubble 2.5s ease-in-out infinite;
+}
+
+.bubble-message::before {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 4px;
+    height: 50px;
+    background: linear-gradient(gold, #caa43b);
+
+    border-radius: 2px;
+}
+
+
+/* THREAD */
+.bubble-message::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+
+    width: 14px;
+    height: 14px;
+
+    background: inherit;
+    border-right: 1px solid rgba(212,175,55,.5);
+    border-bottom: 1px solid rgba(212,175,55,.5);
+}
+
+
+/* ONLY vertical float */
+@keyframes floatBubble {
+    0%,100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-8px);
+    }
+}
+
+
+@keyframes shimmer{
+    0%{ text-shadow:0 0 4px rgba(255,215,0,.8); }
+    50%{ text-shadow:0 0 12px rgba(255,215,0,1); }
+    100%{ text-shadow:0 0 4px rgba(255,215,0,.8); }
+}
+
+
+
+/* Envelope base */
+.envelope-body{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#e8d8b9;
+    border-radius:6px;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    z-index:1;
+}
+
+/* Envelope flap */
+.envelope-flap{
+    position:absolute;
+    top:0;
+    left:0;
+    border-radius:6px;
+    width:100%;
+    height:100%;
+    background:#d4c19c;
+    clip-path:polygon(0 0, 100% 0, 50% 60%);
+    transform-origin:top;
+    transition:transform 1.2s ease;
+    z-index:3;
+}
+
+/* Letter inside */
+.envelope-wrapper .letter{
+    position:absolute;
+    top:80px;
+    padding-top: 80px;
+    left:10%;
+    width:80%;
+    background:white;
+    color:#333;
+    padding:25px;
+    border-radius:6px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    z-index:2;
+    transition:transform 1.2s ease;
+}
+
+/* OPEN ANIMATION */
+.envelope-wrapper.open .envelope-flap{
+    transform:rotateX(180deg);
+}
+
+.envelope-wrapper.open .letter{
+    transform:translateY(-120px);
+}
+
+.lux-envelope{
+    position:relative;
+    width:360px;
+    height:240px;
+    perspective:1200px;
+}
+
+/* soft shadow */
+.env-shadow{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.35);
+    filter:blur(40px);
+    transform:translateY(40px);
+    z-index:0;
+}
+
+/* envelope body */
+.env-body{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(145deg,#f3e7c9,#e6d5a8);
+    border-radius:8px;
+    box-shadow:
+        inset 0 0 20px rgba(0,0,0,.15),
+        0 20px 45px rgba(0,0,0,.5);
+    z-index:2;
+}
+
+/* gold inner lining */
+.env-body::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    background:linear-gradient(45deg,#d4af37,#f6e27a);
+    opacity:.15;
+    border-radius:6px;
+}
+
+/* flap */
+.env-flap{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(160deg,#e8d8b9,#d9c79b);
+    clip-path:polygon(0 0,100% 0,50% 65%);
+    transform-origin:top;
+    transform-style:preserve-3d;
+    transition:transform 1.4s cubic-bezier(.22,1,.36,1);
+    z-index:4;
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+/* wax seal */
+.wax-seal{
+    position:absolute;
+    top:95px;
+    left:50%;
+    transform:translateX(-50%);
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:radial-gradient(circle,#9b111e,#5c0008);
+    color:gold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    cursor:pointer;
+    z-index:5;
+    box-shadow:
+        inset 0 4px 8px rgba(255,255,255,.3),
+        0 6px 15px rgba(0,0,0,.5);
+    transition:.3s;
+}
+
+.wax-seal:hover{
+    transform:translateX(-50%) scale(1.08);
+}
+
+/* letter */
+.env-letter{
+    position:absolute;
+    left:5%;
+    width:70%;
+    top:90px;
+    background:white;
+    padding:40px;
+    border-radius:6px;
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+    text-align:center;
+    z-index:3;
+    transition:transform 1.5s cubic-bezier(.22,1,.36,1);
+}
+
+/* OPEN STATE */
+
+.lux-envelope.open .env-flap{
+    transform:rotateX(180deg);
+}
+
+.lux-envelope.open .env-letter{
+    transform:translateY(-160px);
+}
+
+.lux-envelope.open .wax-seal{
+    opacity:0;
+    transform:translateX(-50%) scale(.6);
+}
+
+
+.letter{
+    text-align:center;
+    border:1px solid gold;
+    padding:60px;
+    animation:fadeIn 2s ease;
+}
+
+.letter h1{
+    letter-spacing:3px;
+}
+
+button{
+    padding:14px 34px;
+    background:gold;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    border-radius:30px;
+}
+/* ================= MUSIC BUTTON ================= */
+#musicToggle {
+    position: fixed;               /* stays in place on scroll */
+    left: 20px;                   /* distance from right edge */
+    bottom: 20px;                     /* distance from top */
+    background: rgba(255, 255, 255, 0.15); /* translucent bubble */
+    backdrop-filter: blur(10px);   /* blur effect */
+    padding: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    display: block;                /* make it visible */
+    z-index: 9997;                 /* in front of almost everything */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* optional, to make it pop */
+    transition: transform 0.2s;    /* optional hover effect */
+}
+
+#musicToggle:hover {
+    transform: scale(1.1);         /* slight zoom on hover */
+}
+
+/* ================= GOLD PARTICLES ================= */
+
+#particles2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;          /* can stay on top visually */
+    pointer-events: none;position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;          /* can stay on top visually */
+    pointer-events: none;
+}
+
 
    .poster {
     width: 380px;
@@ -50,7 +410,7 @@ to{opacity:1;}
 /* IMAGE */
 .image-container {
     width: 100%;
-    height: 460px;
+    height: 50%;
     overflow: hidden;
     position: relative;
 }
@@ -89,23 +449,12 @@ h1 {
     letter-spacing: 1px;
 }
 
-/* NAMES */
-.names {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #222;
-}
-
-.names span {
-    color: #b30059;
-}
-
 /* DATE */
 .date {
-    font-size: 16px;
+    font-size: 25px;
     margin-bottom: 10px;
-    color: #666;
+    color: #ff3b3b;
+    font-weight: 400;
 }
 
 /* VENUE */
@@ -125,34 +474,40 @@ h1 {
     border-radius: 10px;
 }
 
+/* Footer container */
 .footer{
-    margin-top:40px;
-    padding:25px 15px;
-    background:linear-gradient(to right,#fffaf3,#fdf5e6);
-    border-top:2px solid #c8a44f;
-    text-align:center;
-    border-radius:20px 20px 0 0;
-    box-shadow:0 -5px 20px rgba(0,0,0,0.08);
+    margin-top: 40px;
+    padding: 25px 15px;
+    background: linear-gradient(to right, #fffaf3, #fdf5e6);
+    border-top: 2px solid #c8a44f;
+    border-bottom: 2px solid #c8a44f;
+    text-align: center;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
 }
 
-/* TEXT */
+/* Footer text */
 .footer-text{
-    font-size:14px;
-    color:#555;
-    margin-bottom:12px;
+    font-size: 19px;
+    color: #c8a44f;
+    margin-bottom: 12px;
 }
 
-/* HEART ANIMATION */
-.heart{
-    display:inline-block;
-    animation:pulse 1.5s infinite;
-    color:#b30059;
+/* Heart1 styling and animation */
+.footer-text .heart1 {
+    color: #ff3b3b;        /* bright red */
+    font-size: 80px;        /* slightly larger */
+    vertical-align: middle; /* aligns with text */
+    margin-left: 5px;
+    display: inline-block;
+    animation: pulse 1s infinite; /* heart pulse animation */
 }
 
-@keyframes pulse{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.3);}
-    100%{transform:scale(1);}
+/* Keyframes for pulsing heart */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); } /* pulse bigger */
+    100% { transform: scale(1); }
 }
 
 /* BUTTONS */
@@ -179,10 +534,6 @@ h1 {
     background:linear-gradient(135deg,#b30059,#ff4da6);
 }
 
-/* WHATSAPP */
-.footer-btn.whatsapp{
-    background:#25D366;
-}
 
 /* HOVER */
 .footer-btn:hover{
@@ -581,31 +932,30 @@ animation:fall linear infinite;
     box-shadow:0 15px 35px rgba(0,0,0,0.35);
 }
 
-/* WHATSAPP */
-
+/* WHATSAPP BUTTON */
 .whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:15px;
-border-radius:50%;
-font-size:20px;
-display:flex;
-align-items:center;
-justify-content:center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: #fff;
+    width: 55px;              /* fixed size circle */
+    height: 55px;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    z-index: 9997;           /* ensures it stays on top */
+    transition: all 0.3s ease;
 }
 
-/* MUSIC */
-
-.music{
-position:fixed;
-top:20px;
-right:20px;
-background:white;
-padding:10px;
-border-radius:10px;
+/* Hover effect */
+.whatsapp:hover{
+    transform: scale(1.1);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.35);
 }
 
 /* CONTAINER */
@@ -920,73 +1270,150 @@ border-radius:10px;
     text-align:center;
 }
 
-//* Base styling */
+/* ===================================
+   ULTRA CINEMATIC TITLE SYSTEM
+=================================== */
+
 .names {
   text-align: center;
   margin: 40px 0;
+  perspective: 1000px;
   opacity: 0;
-  animation: fadeIn 2s ease forwards;
+  animation: sceneFade 2s ease forwards;
 }
 
+/* MAIN TITLE */
 .names .text {
-  font-family: 'Playfair Display', 'Times New Roman', serif;
-  font-size: 2.2rem;
-  font-weight: 800;
-letter-spacing: 2.5px; /* added bold weight */
-  color: #2c2c2c;
-  letter-spacing: 1.2px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #1b1b1b;
+
   position: relative;
   display: inline-block;
   overflow: hidden;
 
-  /* subtle depth for premium feel */
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  /* CINEMATIC DEPTH */
+  text-shadow:
+    0 3px 12px rgba(0,0,0,0.2),
+    0 10px 35px rgba(0,0,0,0.12);
+
+  transform: rotateX(35deg) translateY(80px) scale(.9);
+  opacity: 0;
+
+  animation: titleCinematic 2.2s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-/* Ampersand styling (keep elegant contrast) */
+/* GOLD AMPERSAND */
 .names .amp {
   font-family: 'Great Vibes', cursive;
-  font-size: 3.6rem;
-  color: #c5a47e;
-  margin: 0 12px;
+  font-size: clamp(4rem, 7vw, 5.8rem);
+  color: #d4af37;
+  margin: 0 18px;
+
+  text-shadow:
+    0 0 15px rgba(212,175,55,.6),
+    0 0 40px rgba(212,175,55,.25);
+
+  animation: goldPulse 4s ease-in-out infinite;
 }
 
-/* Fade-in animation */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* =============================
+   CINEMATIC LIGHT SWEEP
+============================= */
+.names .text::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -250%;
+  width: 200%;
+  height: 200%;
+
+  background: linear-gradient(
+    110deg,
+    transparent 40%,
+    rgba(255,255,255,0.85),
+    rgba(212,175,55,0.7),
+    transparent 80%
+  );
+
+  transform: rotate(25deg);
+  animation: lightSweep 6s ease-in-out infinite;
 }
 
-/* Shimmer effect */
+/* SOFT GOLD SHIMMER */
 .names .text::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -150%;
-  width: 150%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(
     120deg,
     transparent,
-    rgba(197, 164, 126, 0.4),
+    rgba(212,175,55,.25),
     transparent
   );
-  animation: shimmer 3s ease-in-out infinite;
+  opacity: 0;
+  animation: shimmerGlow 5s ease-in-out infinite;
 }
 
-@keyframes shimmer {
+/* ===================================
+   ANIMATIONS
+=================================== */
+
+/* Scene fade-in */
+@keyframes sceneFade {
+  to { opacity: 1; }
+}
+
+/* CINEMATIC TITLE REVEAL */
+@keyframes titleCinematic {
   0% {
-    left: -150%;
+    transform: rotateX(35deg) translateY(80px) scale(.85);
+    opacity: 0;
+    letter-spacing: 14px;
+    filter: blur(8px);
   }
+
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
   100% {
-    left: 150%;
+    transform: rotateX(0) translateY(0) scale(1);
+    letter-spacing: 6px;
+    opacity: 1;
   }
+}
+
+/* GOLD BREATHING LIGHT */
+@keyframes goldPulse {
+  0%,100% {
+    text-shadow:
+      0 0 12px rgba(212,175,55,.4),
+      0 0 30px rgba(212,175,55,.15);
+  }
+  50% {
+    text-shadow:
+      0 0 25px rgba(212,175,55,.8),
+      0 0 60px rgba(212,175,55,.35);
+  }
+}
+
+/* MOVIE LIGHT PASS */
+@keyframes lightSweep {
+  0% { left: -250%; opacity: 0; }
+  20% { opacity: 1; }
+  50% { left: 120%; opacity: .9; }
+  100% { left: 120%; opacity: 0; }
+}
+
+/* SOFT SHIMMER */
+@keyframes shimmerGlow {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 /* MOBILE */
@@ -1006,12 +1433,57 @@ letter-spacing: 2.5px; /* added bold weight */
 .gallery-wrapper{max-width:90%;}
 
 }
-
 </style>
-
 </head>
 
-<body>
+<body style="background:radial-gradient(circle at 50% 20%, #ffffff 0%, #f7f4ef 40%, #efeae2 100%);">
+
+    <!-- MUSIC TOGGLE -->
+<div id="musicToggle">🔊</div>
+
+<!-- ================= MUSIC ================= -->
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+ 
+<!-- GOLD PARTICLES -->
+<canvas id="particles2"></canvas>
+
+<!-- ================= ENVELOPE ================= -->
+<div id="envelope">
+
+    <div class="bubble-wrapper" id="clickMessage">
+        <div class="bubble-message">
+            Click the seal to open invite
+        </div>
+    </div>
+  <div class="lux-envelope">
+
+    <!-- Envelope body -->
+    <div class="env-body"></div>
+
+    <!-- Flap -->
+    <div class="env-flap"></div>
+
+   
+    <!-- Wax Seal -->
+    <div class="wax-seal" id="openInvite">✦</div>
+
+    <!-- Letter -->
+    <div class="env-letter">
+        <h1>Triza & Andrew</h1>
+        <p>You Are Invited To Celebrate Our Love</p>
+    </div>
+
+  </div>
+ 
+
+
+</div>
+
+<!-- ================= HERO ================= -->
+
 
 <div class="poster">
     
@@ -1021,28 +1493,33 @@ letter-spacing: 2.5px; /* added bold weight */
 
     <div class="content">
         
-        <div class="names">
-           <h1>Wedding Invitation</h1>
+        <div class="footer names">
+           
+          <span class="text">
+            <h1>Wedding Invitation</h1>
            <div class="divider"></div>
-		  <span class="text">Triza <span class="amp">&</span> Andrew</span>
-		</div>
+            Triza <span class="amp">&</span> Andrew
+
+          </span>
+        </div>
 
         <div class="footer">
             Every love story is beautiful,
-			but each has its own beginning.
-			Together with their families,
-			Triza and Andrew request the honour of your presence
-			as they unite in a joyful celebration of love and commitment,
-			marking the start of their forever.
-        </div>
+            but each has its own beginning.
+            Together with their families,
+            Triza and Andrew request the honour of your presence
+            as they unite in a joyful celebration of love and commitment,
+            marking the beginning of their forever.
+        
          <div class="date">On</div>
 
-        <div class="date">30th May 2026</div>
+        <div class="date"><strong>30th May 2026</strong></div>
 
         <div class="date">At</div>
 
         <div class="venue">
             Machakos Catholic Cathedral
+        </div>
         </div>
 
     </div>
@@ -1053,46 +1530,46 @@ letter-spacing: 2.5px; /* added bold weight */
 
 <section class="section">
 
-		<h2 class="title">⏳</h2>
-		<h2 class="title">Countdown to Our Big Day</h2>
+        <h2 class="title">⏳</h2>
+        <h2 class="title">Countdown to Our Big Day</h2>
 
-		<div class="countdown-pro">
+        <div class="countdown-pro">
 
-		    <div class="unit">
-		        <div class="flip" id="d">00</div>
-		        <small>Days</small>
-		        <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rd"></circle></svg>
-		    </div>
+            <div class="unit">
+                <div class="flip" id="d">00</div>
+                <small>Days</small>
+                <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rd"></circle></svg>
+            </div>
 
-		    <div class="unit">
-		        <div class="flip" id="h">00</div>
-		        <small>Hours</small>
-		        <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rh"></circle></svg>
-		    </div>
+            <div class="unit">
+                <div class="flip" id="h">00</div>
+                <small>Hours</small>
+                <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rh"></circle></svg>
+            </div>
 
-		    <div class="unit">
-		        <div class="flip" id="m">00</div>
-		        <small>Minutes</small>
-		        <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rm"></circle></svg>
-		    </div>
+            <div class="unit">
+                <div class="flip" id="m">00</div>
+                <small>Minutes</small>
+                <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rm"></circle></svg>
+            </div>
 
-		    <div class="unit">
-		        <div class="flip" id="s">00</div>
-		        <small>Seconds</small>
-		        <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rs"></circle></svg>
-		    </div>
+            <div class="unit">
+                <div class="flip" id="s">00</div>
+                <small>Seconds</small>
+                <svg><circle cx="50" cy="50" r="40"></circle><circle cx="50" cy="50" r="40" id="rs"></circle></svg>
+            </div>
 
-		</div>
+        </div>
 
-		<!-- ADD TO CALENDAR -->
-		<div style="margin-top:20px;">
-		<a class="calendar-btn" target="_blank"
-		href="https://www.google.com/calendar/render?action=TEMPLATE&text=Triza+Weds+Andrew&dates=20260530T070000Z/20260530T130000Z&details=Wedding+Ceremony&location=Machakos+Catholic+Cathedral">
-		📅 Add to Calendar
-		</a>
-		</div>
+        <!-- ADD TO CALENDAR -->
+        <div style="margin-top:20px;">
+        <a class="calendar-btn" target="_blank"
+        href="https://www.google.com/calendar/render?action=TEMPLATE&text=Triza+Weds+Andrew&dates=20260530T070000Z/20260530T130000Z&details=Wedding+Ceremony&location=Machakos+Catholic+Cathedral">
+        📅 Add to Calendar
+        </a>
+        </div>
 
-	</section>
+    </section>
 
 <!-- PROGRAM -->
 
@@ -1106,12 +1583,12 @@ letter-spacing: 2.5px; /* added bold weight */
 
 <div class="timeline-item"><div class="time">9:00 AM</div><div class="glass">Guests Arrive at Church</div></div>
 
-<div class="timeline-item"><div class="time">9:30 - 10:00 AM</div><div class="glass">Groom Procession</div></div>
-<div class="timeline-item"><div class="time"></div><div class="glass">Bridal Procession & Presentation</div></div>
+<div class="timeline-item"><div class="time">9:30 - 10:00 AM</div><div class="glass">Groom’s Procession</div></div>
+<div class="timeline-item"><div class="time"></div><div class="glass">Bridal Procession & Presentations</div></div>
 
 <div class="timeline-item"><div class="time">10:00 - 12:00 PM</div><div class="glass">Holy Mass</div></div>
 
-<div class="timeline-item"><div class="time">12:00 - 12:30 PM</div><div class="glass">Photo Session at church</div></div>
+<div class="timeline-item"><div class="time">12:00 - 12:30 PM</div><div class="glass">Photo Session at Church</div></div>
 
 <div class="timeline-item"><div class="time">12:30 - 16:30 PM</div><div class="glass">Reception at Machakos Golf Club</div></div>
 
@@ -1119,7 +1596,7 @@ letter-spacing: 2.5px; /* added bold weight */
 
 <div class="timeline-item"><div class="time">17:15 - 17:30 PM</div><div class="glass">Vote of thanks</div></div>
 
-<div class="timeline-item"><div class="time">17:30 - Onwards</div><div class="glass">Guests depart at their pleasure </div></div>
+<div class="timeline-item"><div class="time">17:30 - Onwards</div><div class="glass">Guests depart at their leisure </div></div>
 
 </div>
 
@@ -1131,7 +1608,7 @@ letter-spacing: 2.5px; /* added bold weight */
     <h2>Dress Code</h2>
 
     <p class="dress-msg">
-        We kindly invite you to dress in our wedding theme colors to create a beautiful and harmonious celebration.
+        We kindly request that guests dress in our wedding theme colors to help create a beautiful and harmonious celebration.
     </p>
 
     <!-- COLORS -->
@@ -1140,14 +1617,14 @@ letter-spacing: 2.5px; /* added bold weight */
     <div class="style-guide">
         <div class="style-box">
             <h3>👔 Gentlemen</h3>
-            <p>Parliament blue/black suits or smart wear with white shirts.</p>
+            <p>Parliament blue or black suits, or smart wear with a white shirt.</p>
         </div>
 
         <div class="color-hexagons">
 
-    	<div class="hex glow-dark" style="--color:#000000;">
-		    <span>Black</span>
-		</div>
+        <div class="hex glow-dark" style="--color:#000000;">
+            <span>Black</span>
+        </div>
 
         <div class="hex glow-yellow" style="--color:#003366;">
             <span>Parliament Blue</span>
@@ -1162,15 +1639,15 @@ letter-spacing: 2.5px; /* added bold weight */
 
             <div class="color-hexagons">
 
-            	<div class="hex glow-yellow" style="--color:#FFD700;">
-		            <span>Yellow</span>
-		        </div>
+                <div class="hex glow-yellow" style="--color:#FFD700;">
+                    <span>Yellow</span>
+                </div>
 
-		    	<div class="hex glow-purple" style="--color:#6a0dad;">
-				    <span>Purple</span>
-				</div>
+                <div class="hex glow-purple" style="--color:#6a0dad;">
+                    <span>Purple</span>
+                </div>
 
-		    </div>
+            </div>
 
     </div>
 </div>
@@ -1190,8 +1667,8 @@ letter-spacing: 2.5px; /* added bold weight */
             <span class="icon">+</span>
         </div>
         <div class="reminder-content">
-            As much as we love your little ones, we have planned this celebration as an adults-only occasion. 
-            We hope this allows you to relax and enjoy a beautiful evening with us.
+            As much as we adore your little ones, we have planned this celebration as an adults-only occasion.
+            We hope this allows you to relax and fully enjoy this special day with us.
         </div>
     </div>
 
@@ -1202,7 +1679,7 @@ letter-spacing: 2.5px; /* added bold weight */
             <span class="icon">+</span>
         </div>
         <div class="reminder-content">
-            Kindly arrive at least 30 minutes early to get settled and enjoy the ambiance before the ceremony begins.
+            Kindly arrive at least 30 minutes early to be comfortably settled and to enjoy the ambiance before the ceremony begins.
         </div>
     </div>
 
@@ -1214,8 +1691,7 @@ letter-spacing: 2.5px; /* added bold weight */
         </div>
         <div class="reminder-content">
 
-            Your presence is the greatest gift we could receive. If you wish to bless us further, 
-            a monetary contribution would be appreciated.
+            Your presence at our wedding is the greatest gift, but should you wish to bless us further, a monetary contribution would be warmly appreciated.
 
             <div class="mpesa-box">
                 📲 M-Pesa: <strong id="mpesa">0723168685</strong><br>
@@ -1263,11 +1739,11 @@ href="https://maps.google.com/?q=Machakos+Golf+Club">
 
     <!-- TOGGLE BUTTONS -->
     <hr>
-	<div class="map-toggle">
-	    <button onclick="showMap('church')" class="active">⛪ Church preview</button>
-	    <button onclick="showMap('reception')">🎉 Reception preview</button>
-	</div>
-	<hr>
+    <div class="map-toggle">
+        <button onclick="showMap('church')" class="active">⛪ Church preview</button>
+        <button onclick="showMap('reception')">🎉 Reception preview</button>
+    </div>
+    <hr>
 </div>
 <br>
 </div>
@@ -1292,17 +1768,14 @@ href="https://maps.google.com/?q=Machakos+Golf+Club">
     <div class="parking-item">
         <h3>🔐 Secure Parking</h3>
         <p>
-            For the safety and security of all vehicles, a secure parking area 
-            has been arranged at the reception venue.
+            For the safety and security of all vehicles, a secure parking area has been arranged at the reception venue for your convenience.
         </p>
     </div>
 
     <div class="parking-item">
         <h3>🎫 Car Pass System</h3>
         <p>
-            Each vehicle will be issued a <strong>car pass card</strong> upon arrival. 
-            This pass will be required for both entry and exit, ensuring that only 
-            authorized guests can access and leave with their vehicles.
+            Due to increased cases of car theft during social gatherings, each vehicle will receive a <strong>Car Pass</strong> card upon arrival. Please make sure to present your card at reception entry so that it can be registered to your vehicle. The card will be required for both entry and exit, ensuring that only authorized guests depart with their vehicles.
         </p>
     </div>
 
@@ -1335,43 +1808,162 @@ href="https://maps.google.com/?q=Machakos+Golf+Club">
 
 </section>
 
+<section class="section parking">
+<div class="footer-text parking-card">
+
+    <h3>Thank you for celebrating with us.</h3> 
+    <hr>
+    <h3><em>Your presence means the world and makes our wedding truly unforgettable.</em></h3> 
+    <span class="heart1">💞</span>
+
+</div>
+</section>
+
 <div class="footer">
 
-    <div class="footer-text">
-        Thank you for celebrating with us 
-        <span class="heart">❤</span>
-    </div>
+    
 
     <div class="footer-actions">
 
-    	<div class="footer-credit">
-	        Designed by <span>WiderTech Limited</span>
-	    </div>
-	    <div>
+        <div class="footer-credit">
+            <p><em><strong>Proudly designed and developed by <span>WiderTech Limited</em></span></strong></p>
+        </div>
+        <div>
         <a href="tel:+254725236481" class="footer-btn call">
             📞 Talk to developer
         </a>
-   		</div>
+        </div>
 
     </div>
 
 </div>
-
-<!-- MUSIC -->
-
-<!-- <div class="music">
-<audio controls autoplay loop>
-<source src="song.mp3">
-</audio>
-</div> -->
-
 <!-- WHATSAPP -->
 
-<a class="whatsapp" href="https://wa.me/254724835160">
-<i class="fab fa-whatsapp"></i>
+<a href="https://wa.me/254724835160" class="whatsapp" target="_blank">
+    <i class="fab fa-whatsapp"></i>
 </a>
 
+
 <script>
+const clickMsg = document.getElementById("clickMessage");
+const seal = document.getElementById("openInvite");
+
+function followSeal() {
+
+    const seal = document.getElementById("openInvite");
+    const bubble = document.getElementById("clickMessage");
+
+    const rect = seal.getBoundingClientRect();
+
+    bubble.style.left = rect.left + rect.width/2 + "px";
+    bubble.style.top  = rect.top - 20 + "px";
+
+    requestAnimationFrame(followSeal);
+}
+
+followSeal();
+
+
+const music = document.getElementById("bgMusic");
+const envelope = document.getElementById("envelope");
+const luxEnv = document.querySelector(".lux-envelope");
+const hero = document.querySelector(".hero");
+const toggle = document.getElementById("musicToggle");
+//const clickMsg = document.getElementById("clickMessage");
+
+
+
+/* OPEN INVITATION */
+document.getElementById("openInvite").onclick = () => {
+
+    // fade out bubble message
+    //clickMsg.style.transition = "opacity 0.6s ease";
+    //clickMsg.style.opacity = "0";
+
+    // open envelope animation
+    luxEnv.classList.add("open");
+
+    // play music if you already added it
+    music.play().catch(()=>{});
+
+    // fade away intro
+    setTimeout(()=>{
+        envelope.style.opacity="0";
+    },1600);
+
+    setTimeout(()=>{
+        envelope.style.display="none";
+        document.body.style.overflow="auto";
+    },2600);
+
+    music.volume = 0;
+    music.play();
+
+    // Smooth audio fade
+    let vol = 0;
+    const fade = setInterval(()=>{
+        if(vol < 1){
+            vol += 1;
+            music.volume = vol;
+        }else{
+            clearInterval(fade);
+        }
+    },120);
+
+    document.getElementById('musicToggle').style.display = 'block';
+
+    envelope.style.opacity="0";
+
+};
+
+/* MUSIC TOGGLE */
+toggle.onclick = ()=>{
+    if(music.paused){
+        music.play();
+        toggle.innerHTML="🔊";
+    }else{
+        music.pause();
+        toggle.innerHTML="🔇";
+    }
+};
+
+
+
+/* GOLD PARTICLES BACKGROUND */
+const canvas=document.getElementById("particles2");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<150;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        d:Math.random()*1
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="rgba(212,175,55,0.8)";
+
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+        p.y+=p.d;
+        if(p.y>canvas.height) p.y=0;
+    });
+
+    requestAnimationFrame(draw);
+}
+draw();
+
+
+
 
 /* TIMELINE ANIMATION */
 
@@ -1542,6 +2134,27 @@ ring(el.rs,s,60);
 // RUN
 setInterval(update,1000);
 update();
+
+/* STOP MUSIC WHEN USER LEAVES PAGE */
+
+// When page is closed, refreshed, or navigated away
+window.addEventListener("beforeunload", function () {
+    const music = document.getElementById("bgMusic");
+    music.pause();
+    music.currentTime = 0;
+});
+
+// When user switches tab or minimizes browser
+document.addEventListener("visibilitychange", function () {
+    const music = document.getElementById("bgMusic");
+
+    if (document.hidden) {
+        music.pause();
+    } else {
+        music.play().catch(()=>{});
+    }
+});
+
 
 </script>
 
